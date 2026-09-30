@@ -13,7 +13,7 @@ const App = () => {
       <div className="app-main flex min-w-0 flex-1 flex-col">
         <Searchbar />
 
-        <main className="hide-scrollbar flex-1 overflow-y-auto px-5 pb-36 sm:px-8">
+        <main className="hide-scrollbar min-h-0 flex-1 overflow-y-auto px-5 pb-36 sm:px-8">
           <div className="mx-auto grid w-full max-w-[1500px] grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_280px]">
             <div className="min-w-0 pb-8">
             <Routes>
@@ -34,7 +34,7 @@ const App = () => {
       </div>
 
       {activeSong?.title && (
-        <div className="fixed bottom-0 left-0 right-0 z-30 flex h-20 animate-slideup border-t border-white/10 bg-[#11121a]/95 shadow-[0_-20px_80px_rgba(0,0,0,.45)] backdrop-blur-xl sm:h-24">
+        <div className="mobile-player fixed bottom-0 left-0 right-0 z-30 flex h-20 animate-slideup border-t border-white/10 bg-[#11121a]/95 shadow-[0_-20px_80px_rgba(0,0,0,.45)] backdrop-blur-xl sm:h-24">
           <MusicPlayer />
         </div>
       )}
