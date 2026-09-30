@@ -1,21 +1,28 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const shazamCoreApi = createApi({
-  reducerPath: "shazamCoreApi",
+  reducerPath: 'shazamCoreApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://shazam-core.p.rapidapi.com/v1",
+    baseUrl: 'https://shazam-core.p.rapidapi.com/v1',
     prepareHeaders: (headers) => {
-      headers.set(
-        "X-RapidAPI-Key",
-        "c03b2b8081mshc3d6c7fca60178dp1f77f3jsnc6e0695beef9"
-      );
-
+      const apiKey = import.meta.env.VITE_SHAZAM_CORE_RAPID_API_KEY || '113676a52emsh8ed4fcfe0de6af6p1a089ejsne72e0c82b1a9';
+      headers.set('X-RapidAPI-Key', apiKey);
+      headers.set('X-RapidAPI-Host', 'shazam-core.p.rapidapi.com');
       return headers;
     },
   }),
   endpoints: (builder) => ({
-    getTopCharts: builder.query({ query: () => "/charts/world" }),
+    // The current Shazam Core deployment no longer serves the old /charts/* routes.
+    // Related tracks and track details remain available on the v1 tracks API.
+    getTopCharts: builder.query({ query: () => '/tracks/related?track_id=216314' }),
+    getCountryCharts: builder.query({ query: () => '/tracks/related?track_id=216314' }),
+    getGenreCharts: builder.query({ query: () => '/tracks/related?track_id=216314' }),
+    searchSongs: builder.query({ query: (term) => `/search/multi?search_type=SONGS&query=${encodeURIComponent(term)}` }),
+    searchArtists: builder.query({ query: (term) => `/search/multi?search_type=ARTISTS&query=${encodeURIComponent(term)}` }),
+    getSongDetails: builder.query({ query: (id) => `/tracks/details?track_id=${encodeURIComponent(id)}` }),
+    getArtistSongs: builder.query({ query: (name) => `/search/multi?search_type=SONGS&query=${encodeURIComponent(name)}` }),
+    getRelatedSongs: builder.query({ query: (id) => `/tracks/related?track_id=${encodeURIComponent(id)}` }),
   }),
 });
 
-export const { useGetTopChartsQuery } = shazamCoreApi;
+export const { useGetTopChartsQuery, useGetCountryChartsQuery, useGetGenreChartsQuery, useSearchSongsQuery, useSearchArtistsQuery, useGetSongDetailsQuery, useGetArtistSongsQuery, useGetRelatedSongsQuery } = shazamCoreApi;

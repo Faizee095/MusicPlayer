@@ -8,13 +8,14 @@ const App = () => {
   const { activeSong } = useSelector((state) => state.player);
 
   return (
-    <div className="relative flex">
+    <div className="app-shell relative flex h-screen overflow-hidden text-white">
       <Sidebar />
-      <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286]">
+      <div className="app-main flex min-w-0 flex-1 flex-col">
         <Searchbar />
 
-        <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
-          <div className="flex-1 h-fit pb-40">
+        <main className="hide-scrollbar flex-1 overflow-y-auto px-5 pb-36 sm:px-8">
+          <div className="mx-auto grid w-full max-w-[1500px] grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1fr)_280px]">
+            <div className="min-w-0 pb-8">
             <Routes>
               <Route path="/" element={<Discover />} />
               <Route path="/top-artists" element={<TopArtists />} />
@@ -25,14 +26,15 @@ const App = () => {
               <Route path="/search/:searchTerm" element={<Search />} />
             </Routes>
           </div>
-          <div className="xl:sticky relative top-0 h-fit">
+          <div className="hidden xl:block">
             <TopPlay />
           </div>
-        </div>
+          </div>
+        </main>
       </div>
 
       {activeSong?.title && (
-        <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
+        <div className="fixed bottom-0 left-0 right-0 z-30 flex h-20 animate-slideup border-t border-white/10 bg-[#11121a]/95 shadow-[0_-20px_80px_rgba(0,0,0,.45)] backdrop-blur-xl sm:h-24">
           <MusicPlayer />
         </div>
       )}
