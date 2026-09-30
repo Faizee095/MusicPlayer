@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div className="app-shell relative flex h-screen overflow-hidden text-white">
       <Sidebar />
-      <div className="app-main flex min-w-0 flex-1 flex-col">
+      <div className="app-main flex min-w-0 flex-1 flex-col overflow-x-hidden">
         <Searchbar />
 
         <main className="hide-scrollbar min-h-0 flex-1 overflow-y-auto px-5 pb-36 sm:px-8">
